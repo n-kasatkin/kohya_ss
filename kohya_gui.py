@@ -117,8 +117,7 @@ def UI(**kwargs):
     if do_not_share:
         launch_kwargs["share"] = False
     else:
-        if share:
-            launch_kwargs["share"] = share
+        launch_kwargs["share"] = True
     if root_path:
         launch_kwargs["root_path"] = root_path
     launch_kwargs["debug"] = True
