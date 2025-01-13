@@ -9,8 +9,8 @@ person_model_path = Path('yolo_weights/yolov8n-person.pt')  # Path to person det
 input_directory = Path('../data/nk-dataset')  # Directory with input images
 output_directory = Path('../data/nk-dataset-crops')  # Directory for saving processed images
 desired_size = 1024  # Desired output resolution
-face_padding = 1  # Padding around face bounding boxes
-person_padding = 1  # Padding around person bounding boxes
+face_padding = 1.15  # Padding around face bounding boxes
+person_padding = 1.1  # Padding around person bounding boxes
 
 # Load models
 face_model = YOLO(face_model_path)
@@ -93,20 +93,17 @@ def process_image(image_path, model, output_dir, padding, counter):
 
 def main():
     # Create output directories if they don't exist
-    face_output_dir = output_directory
-    person_output_dir = output_directory
-    face_output_dir.mkdir(parents=True, exist_ok=True)
-    person_output_dir.mkdir(parents=True, exist_ok=True)
+    output_directory.mkdir(parents=True, exist_ok=True)
 
     # Iterate through images in the input directory
     counter = 0
     for image_path in input_directory.iterdir():
         if image_path.suffix.lower() in {'.png', '.jpg', '.jpeg'}:
             # Process image for face detection
-            counter = process_image(image_path, face_model, face_output_dir, face_padding, counter)
+            counter = process_image(image_path, face_model, output_directory, face_padding, counter)
 
             # Process image for person detection
-            counter = process_image(image_path, person_model, person_output_dir, person_padding, counter)
+            counter = process_image(image_path, person_model, output_directory, person_padding, counter)
 
 if __name__ == '__main__':
     main()
