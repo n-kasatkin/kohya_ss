@@ -53,6 +53,3 @@ dependencies = [
 
 [tool.uv.sources]
 library = { path = "sd-scripts" }
-
-[tool.uv.workspace]
-members = ["dataset_preparation_scripts"]
